@@ -1,3 +1,6 @@
+.prettierrc.json
+.vscode
+
 #Junk
 .DS_Store
 .vscode/

@@ -1,14 +1,114 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <title>Home</title>
+    <!-- Normalize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+      rel="stylesheet"
+      integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Styles CSS -->
+    <link href="./css/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <!-- Main -->
+    <main>
+      <!-- Home section -->
+      <section class="home section">
+        <div class="container home-container">
+          <div class="left-part">
+            <ul class="categories-list list">
+              <li class="categories-list-item"></li>
+            </ul>
+          </div>
+          <div class="books-part">
+            <h1 class="books-part-title">
+              Best Sellers<span class="books-part-title-span"> Books</span>
+            </h1>
+            <div class="book-categories-container">
+              <!-- <div class="book-category-container">
+                <h2 class="book-category-title">
+                  Advice How-To and Miscellaneous
+                </h2>
+                <ul class="book-cards-list">
+                  <li class="book-cards-list-item">
+                    <img
+                      class="book-card-img js-book-card-img"
+                      src="./img/book_img.jpg"
+                      alt="Book image"
+                      loading="lazy"
+                    />
+                    <p class="book-card-title js-book-card-title">Book title</p>
+                    <p class="book-card-author js-book-card-author">
+                      Book author
+                    </p>
+                  </li>
+                  <li class="book-cards-list-item">
+                    <img
+                      class="book-card-img js-book-card-img"
+                      src="./img/book_img.jpg"
+                      alt="Book image"
+                      loading="lazy"
+                    />
+                    <p class="book-card-title js-book-card-title">Book title</p>
+                    <p class="book-card-author js-book-card-author">
+                      Book author
+                    </p>
+                  </li>
+                  <li class="book-cards-list-item">
+                    <img
+                      class="book-card-img js-book-card-img"
+                      src="./img/book_img.jpg"
+                      alt="Book image"
+                      loading="lazy"
+                    />
+                    <p class="book-card-title js-book-card-title">Book title</p>
+                    <p class="book-card-author js-book-card-author">
+                      Book author
+                    </p>
+                  </li>
+                  <li class="book-cards-list-item">
+                    <img
+                      class="book-card-img js-book-card-img"
+                      src="./img/book_img.jpg"
+                      alt="Book image"
+                      loading="lazy"
+                    />
+                    <p class="book-card-title js-book-card-title">Book title</p>
+                    <p class="book-card-author js-book-card-author">
+                      Book author
+                    </p>
+                  </li>
+                  <li class="book-cards-list-item">
+                    <img
+                      class="book-card-img js-book-card-img"
+                      src="./img/book_img.jpg"
+                      alt="Book image"
+                      loading="lazy"
+                    />
+                    <p class="book-card-title js-book-card-title">Book title</p>
+                    <p class="book-card-author js-book-card-author">
+                      Book author
+                    </p>
+                  </li>
+                </ul>
+                <button type="button" class="see-more-btn">See more</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- <div class="book-card js-book-card">
+        <img class="book-card-img js-book-card-img" src="" alt="" data-book-id="" loading="lazy" />
+        <p class="book-card-title js-book-card-title">Book title</p>
+        <p class="book-card-author js-book-card-author">Book author</p>
+        </div> -->
+      <script src="./js/index.js" type="module"></script>
+    </main>
   </body>
 </html>
