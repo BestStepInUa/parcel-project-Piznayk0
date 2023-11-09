@@ -5,11 +5,18 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
-    bookCaregoriesContainer: document.querySelector('.book-categories-container') 
+    booksCaregoriesContainer: document.querySelector('.book-categories-container'),
+    booksCaregoryTitle: document.querySelector('.books-caregory-title'),
+    booksCaregoryTitleSpan: document.querySelector('.books-caregory-title-span')
 }
+console.log(Refs.booksCaregoryTitle);
+console.log(Refs.booksCaregoryTitleSpan);
+console.log(Refs.categoriesList);
+console.log(Refs.booksCaregoriesContainer);
 
 getCategories()
     .then(categories => {
+        console.log(categories);
         Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
         
     })
@@ -19,8 +26,9 @@ getCategories()
     })
 
 getTopBooks()
-    .then(topBooks => {
-        Refs.bookCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(topBooks));
+    .then(categories => {
+        console.log(categories);
+        Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
     }                       
     )  
     .catch((err) => {
@@ -28,7 +36,19 @@ getTopBooks()
         // Notify.failure('Oops! Something went wrong! Try reloading the page!');
     })
 
-Refs.categoriesList.addEventListener('click', onLoadCategory);   
+Refs.categoriesList.addEventListener('click', onLoadCategory);
+
+function onLoadCategory(evt) {
+    if (evt.target.nodeName !== "LI") {
+        return;        
+    }
+    const categoryName = evt.target.dataset.categoryName;
+    const categoryNameArr = categoryName.split(' ');
+
+    console.log(categoryNameArr);
+    getBooksInCategory(categoryName)
+        .then(books => console.log(books))
+}
 
 async function getCategories() {        
     return await axios.get(`${BASE_API_URL}/category-list`)
@@ -60,15 +80,6 @@ async function getBooksInCategory(category) {
         });
 }
 
-function onLoadCategory(evt) {
-    if (evt.target.nodeName !== "LI") {
-        return;        
-    }
-    // console.log(evt.target.dataset.categoryName);
-    getBooksInCategory(evt.target.dataset.categoryName)
-        .then(data => console.log(data))
-}
-
 function createCategoriesListMarkup(categories) {
     const result = categories.map(
         ({ list_name }) =>
@@ -78,8 +89,8 @@ function createCategoriesListMarkup(categories) {
     return result.join('');
 }
 
-function createBooksCategoriesCardsMarkup(topBooks) {
-    return topBooks.map(({ list_name, books }) => {
+function createBooksCategoriesCardsMarkup(categories) {
+    return categories.map(({ list_name, books }) => {
         const bookCards = books.map(({ _id, book_image, author, title }) =>
             `<li class="book-cards-list-item">
             <img
@@ -102,4 +113,21 @@ function createBooksCategoriesCardsMarkup(topBooks) {
                 <button type="button" class="see-more-btn">See more</button>             
             </div>`
     }).join('');
+}
+
+function createBooksInCategoryMarkup(books) {
+    return books.map(({ _id, book_image, author, title }) =>
+            `<li class="book-cards-list-item">
+            <img
+            class="book-card-img"
+            src="${book_image}"
+            alt="${title}"
+            data-book-id="${_id}"
+            loading="lazy"
+            />
+            <p class="book-card-title">${title}</p>
+            <p class="book-card-author">${author}</p>
+        </li>`
+        ).join('');
+
 }
