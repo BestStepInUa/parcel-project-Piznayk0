@@ -61,7 +61,7 @@ function createCategoriesListMarkup(categories) {
     return result.join('');
 }
 
-function createBooksCategoriesCardsMarkup({ topBooks: { list_name, books } }) {
+function createBooksCategoriesCardsMarkup({ list_name, books } ) {
     const bookCards = books.map(({ _id, book_image, author, title }) => 
         `<li class="book-cards-list-item">
             <img
