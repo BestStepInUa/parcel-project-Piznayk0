@@ -5,8 +5,7 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
-    bookCaregoriesContainer: document.querySelector('.book-categories-container'),
-    bookCardsList: document.querySelector('.book-cards-list')    
+    bookCaregoriesContainer: document.querySelector('.book-categories-container') 
 }
 
 getCategories()
@@ -29,7 +28,7 @@ getTopBooks()
         // Notify.failure('Oops! Something went wrong! Try reloading the page!');
     })
 
-Refs.bookCardsList.addEventListener('click', onLoadCategory);    
+Refs.categoriesList.addEventListener('click', onLoadCategory);   
 
 async function getCategories() {        
     return await axios.get(`${BASE_API_URL}/category-list`)
@@ -51,20 +50,23 @@ async function getTopBooks() {
         });
 }
 
-// async function getBooksInCategory(category) {
-//     return await axios.get(`${BASE_API_URL}/category?category=${category}`)
-//         .then(resp => {
-//             if (!resp.status) {
-//                 throw new Error(resp.status || resp.statusText);
-//             }
-//             return resp.data;                                             
-//         });
-// }
+async function getBooksInCategory(category) {
+    return await axios.get(`${BASE_API_URL}/category?category=${category}`)
+        .then(resp => {
+            if (!resp.status) {
+                throw new Error(resp.status || resp.statusText);
+            }
+            return resp.data;                                             
+        });
+}
 
-function onLoadCategory() {
-    // const category = evt.currentTarget;
-    console.log('Click');
-
+function onLoadCategory(evt) {
+    if (evt.target.nodeName !== "LI") {
+        return;        
+    }
+    // console.log(evt.target.dataset.categoryName);
+    getBooksInCategory(evt.target.dataset.categoryName)
+        .then(data => console.log(data))
 }
 
 function createCategoriesListMarkup(categories) {
