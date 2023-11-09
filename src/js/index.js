@@ -21,10 +21,9 @@ getCategories()
 
 getTopBooks()
     .then(topBooks => {
-        topBooks.forEach(category => {
-            Refs.bookCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(category));            
-        });
-    })  
+        Refs.bookCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(topBooks));
+    }                       
+    )  
     .catch((err) => {
         console.error(err);        
         // Notify.failure('Oops! Something went wrong! Try reloading the page!');
@@ -33,7 +32,6 @@ getTopBooks()
 async function getCategories() {        
     return await axios.get(`${BASE_API_URL}/category-list`)
         .then(resp => {
-            console.log('getCategories fetch data:\n', resp.data);
             if (!resp.status) {
                 throw new Error(resp.status || resp.statusText);
             }
@@ -44,7 +42,6 @@ async function getCategories() {
 async function getTopBooks() {
     return await axios.get(`${BASE_API_URL}/top-books`)
         .then(resp => {
-            console.log('getTopBooks fetch data:\n', resp.data);
             if (!resp.status) {
                 throw new Error(resp.status || resp.statusText);
             }
@@ -61,9 +58,10 @@ function createCategoriesListMarkup(categories) {
     return result.join('');
 }
 
-function createBooksCategoriesCardsMarkup({ list_name, books } ) {
-    const bookCards = books.map(({ _id, book_image, author, title }) => 
-        `<li class="book-cards-list-item">
+function createBooksCategoriesCardsMarkup(topBooks) {
+    return topBooks.map(({ list_name, books }) => {
+        const bookCards = books.map(({ _id, book_image, author, title }) =>
+            `<li class="book-cards-list-item">
             <img
             class="book-card-img"
             src="${book_image}"
@@ -73,14 +71,15 @@ function createBooksCategoriesCardsMarkup({ list_name, books } ) {
             />
             <p class="book-card-title">${title}</p>
             <p class="book-card-author">${author}</p>
-        </li>`                               
-    ).join('');
-
-    return `<div class="book-category-container">
+        </li>`
+        ).join('');
+        
+        return `<div class="book-category-container">
                 <h2 class="book-category-title">${list_name}</h2>
                 <ul class="book-cards-list">
                 ${bookCards}                  
                 </ul>
                 <button type="button" class="see-more-btn">See more</button>             
-            </div>`     
-};
+            </div>`
+    }).join('');
+}
