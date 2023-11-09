@@ -182,11 +182,10 @@ body {
   margin-bottom: 32px;
 }
 .book-cards-list-item {
-  flex-basis: calc((100% - 24 * 4) / 5);
-  /* height: 306px; */
-  /* overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; */
+  width: 180px;
+
+  outline: 2px solid orange;
+  outline-offset: -2px;
 }
 .book-card-img {
   min-width: 180px;
@@ -202,6 +201,11 @@ body {
   line-height: 1.13;
   letter-spacing: -0.64px;
   text-transform: uppercase;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
 }
 .book-card-author {
   color: var(--gray-cl);
@@ -210,6 +214,11 @@ body {
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: -0.48px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
 }
 .see-more-btn {
   margin-left: auto;

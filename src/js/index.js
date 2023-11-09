@@ -5,7 +5,6 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
-    categoriesListItemsLinks: document.querySelectorAll('.categories-list-item-link'),
     bookCaregoriesContainer: document.querySelector('.book-categories-container'),
     bookCardsList: document.querySelector('.book-cards-list')    
 }
@@ -29,6 +28,8 @@ getTopBooks()
         console.error(err);        
         // Notify.failure('Oops! Something went wrong! Try reloading the page!');
     })
+
+Refs.bookCardsList.addEventListener('click', onLoadCategory);    
 
 async function getCategories() {        
     return await axios.get(`${BASE_API_URL}/category-list`)
@@ -69,13 +70,9 @@ function onLoadCategory() {
 function createCategoriesListMarkup(categories) {
     const result = categories.map(
         ({ list_name }) =>
-            `<li class="categories-list-item" data-category-name="${list_name}">
-                <a href="#">${list_name}</a>
-            </li>`
+            `<li class="categories-list-item" data-category-name="${list_name}">${list_name}</li>`
     ).sort((a,b) => a.localeCompare(b));    
-    result.unshift(`<li class="categories-list-item active" data-category-name="All categories">
-        <a href="#">All categories</a>
-    </li>`);
+    result.unshift(`<li class="categories-list-item active" data-category-name="All categories">All categories</li>`);
     return result.join('');
 }
 
