@@ -178,12 +178,12 @@ body {
   display: flex;
   gap: 24px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 32px;
 }
 .book-cards-list-item {
   flex-basis: calc((100% - 24 * 4) / 5);
-  height: 306px;
+  /* height: 306px; */
   /* overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; */
