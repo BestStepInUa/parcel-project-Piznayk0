@@ -10,7 +10,7 @@ const Refs = {
 }
 
 getCategories()
-    .then(categories => {    
+    .then(categories => {
         Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
         
     })
@@ -21,10 +21,10 @@ getCategories()
 
 getTopBooks()
     .then(topBooks => {
-        Refs.bookCaregoriesContainer.innerHTML = createTopBooksMarkup(topBooks);
-        // Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
-        
-    })
+        topBooks.forEach(category => {
+            Refs.bookCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(category));            
+        });
+    })  
     .catch((err) => {
         console.error(err);        
         // Notify.failure('Oops! Something went wrong! Try reloading the page!');
@@ -61,32 +61,26 @@ function createCategoriesListMarkup(categories) {
     return result.join('');
 }
 
-function createTopBooksMarkup(topBooks) {
-    const result = topBooks.map(
-        ({ list_name, books }) => {
-            const bookCategoryContainer = `<div class="book-category-container">
+function createBooksCategoriesCardsMarkup({ topBooks: { list_name, books } }) {
+    const bookCards = books.map(({ _id, book_image, author, title }) => 
+        `<li class="book-cards-list-item">
+            <img
+            class="book-card-img"
+            src="${book_image}"
+            alt="${title}"
+            data-book-id="${_id}"
+            loading="lazy"
+            />
+            <p class="book-card-title">${title}</p>
+            <p class="book-card-author">${author}</p>
+        </li>`                               
+    ).join('');
+
+    return `<div class="book-category-container">
                 <h2 class="book-category-title">${list_name}</h2>
-                <ul class="book-cards-list">                  
-                </ul>             
-              </div>`            
-                         
-            const booksInCategory = books.map(({ _id, book_image, author, title }) => 
-                `<li class="book-cards-list-item">
-                    <img
-                    class="book-card-img"
-                    src="${book_image}"
-                    alt="${title}"
-                    data-book-id="${_id}"
-                    loading="lazy"
-                    />
-                    <p class="book-card-title">${title}</p>
-                    <p class="book-card-author">${author}</p>
-                </li>`                               
-            ).join('');
-            console.log(booksInCategory);
-            
-              
-        }                 
-    );
-    return result.join('');
-}
+                <ul class="book-cards-list">
+                ${bookCards}                  
+                </ul>
+                <button type="button" class="see-more-btn">See more</button>             
+            </div>`     
+};
