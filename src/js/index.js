@@ -37,6 +37,8 @@ function onLoadCategory(evt) {
         return;
     }
 
+    window.scrollTo(0, 0);
+
     const curr = evt.target;
     curr.parentElement.querySelector('.categories-list-item.active').classList.remove('active');
     curr.classList.add('active');
@@ -64,6 +66,8 @@ function onSeeMoreBtn(evt) {
     if (evt.target.nodeName !== "BUTTON") {
         return;
     }
+
+    window.scrollTo(0, 0);
 
     const btn = evt.target;
     const categoryName = btn.parentElement.querySelector('.book-category-title').textContent;
