@@ -4,16 +4,18 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
-    activeCategory: document.querySelector('.active'),
+    activeCategory: document.querySelector('categories-list-item.active'),
+    allCategories: document.querySelectorAll('.categories-list-item'),
     booksPart: document.querySelector('.books-part'),
     booksCaregoriesContainer: document.querySelector('.book-categories-container')    
 }
-console.log(Refs.activeCategory);
+
 getCategories()
     .then(categories => {
         console.log(categories);
         Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
         console.log(Refs.activeCategory);
+        console.log(Refs.allCategories);
     })
     .catch((err) => {
         console.error(err);
