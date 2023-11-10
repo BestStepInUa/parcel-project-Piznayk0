@@ -4,8 +4,6 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
-    activeCategory: document.querySelector('categories-list-item.active'),
-    allCategories: document.querySelectorAll('.categories-list-item'),
     booksPart: document.querySelector('.books-part'),
     booksCaregoriesContainer: document.querySelector('.book-categories-container')    
 }
@@ -13,9 +11,7 @@ const Refs = {
 getCategories()
     .then(categories => {
         console.log(categories);
-        Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
-        console.log(Refs.activeCategory);
-        console.log(Refs.allCategories);
+        Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);        
     })
     .catch((err) => {
         console.error(err);
@@ -34,13 +30,16 @@ getTopBooks()
     });
 
 Refs.categoriesList.addEventListener('click', onLoadCategory);
+Refs.booksCaregoriesContainer.addEventListener('click', onSeeMoreBtn);
 
 function onLoadCategory(evt) {
     if (evt.target.nodeName !== "LI") {
         return;
     }
 
-    // evt.target.classList.add('active');
+    const curr = evt.target;
+    curr.parentElement.querySelector('.categories-list-item.active').classList.remove('active');
+    curr.classList.add('active');
 
     const categoryName = evt.target.dataset.categoryName;        
         
@@ -60,6 +59,31 @@ function onLoadCategory(evt) {
             // Notify.failure('Oops! Something went wrong! Try reloading the page!');
         });           
 };
+
+function onSeeMoreBtn(evt) {
+    if (evt.target.nodeName !== "BUTTON") {
+        return;
+    }
+
+    const btn = evt.target;
+    const categoryName = btn.parentElement.querySelector('.book-category-title').textContent;
+    
+    getBooksInCategory(categoryName)
+        .then(books => {
+            console.log(books);
+            Refs.booksPart.innerHTML = 
+            `${createBooksCaregoryTitle(categoryName)}
+            <div class="book-category-wrapper">
+                <ul class="book-cards-list book-cards-list-one-category">
+                ${createBooksInCategoryMarkup(books)}                  
+                </ul>                             
+            </div>`            
+        })
+        .catch((err) => {
+            console.error(err);
+            // Notify.failure('Oops! Something went wrong! Try reloading the page!');
+        }); 
+}
 
 async function getCategories() {        
     return await axios.get(`${BASE_API_URL}/category-list`)
