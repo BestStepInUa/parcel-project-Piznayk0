@@ -164,6 +164,9 @@ body {
 .book-category-container:not(:last-child) {
   margin-bottom: 40px;
 }
+.book-category-wrapper {
+  display: flex;
+}
 .book-category-title {
   margin-bottom: 18px;
   color: var(--gray-cl);
@@ -176,10 +179,14 @@ body {
 }
 .book-cards-list {
   display: flex;
-  gap: 24px;
+  row-gap: 40px;
+  column-gap: 24px;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 32px;
+}
+.book-cards-list-one-category {
+  flex-wrap: wrap;
 }
 .book-cards-list-item {
   width: 180px;
