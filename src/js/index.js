@@ -5,14 +5,20 @@ const BASE_API_URL = 'https://books-backend.p.goit.global/books';
 
 const Refs = {
     categoriesList: document.querySelector('.categories-list'),
+    booksPart: document.querySelector('.books-part'),
     booksCaregoriesContainer: document.querySelector('.book-categories-container'),
-    booksCaregoryTitle: document.querySelector('.books-caregory-title'),
-    booksCaregoryTitleSpan: document.querySelector('.books-caregory-title-span')
+    booksCaregoryTitle: document.querySelector('.books-part-title'),
+    booksCaregoryTitleSpan: document.querySelector('.books-part-title-span')
+    // booksCaregoryTitle: document.querySelector('.books-caregory-title'),
+    // booksCaregoryTitleSpan: document.querySelector('.books-caregory-title-span')
 }
+
+console.log(Refs.categoriesList);
+console.log(Refs.booksPart);
+console.log(Refs.booksCaregoriesContainer);
 console.log(Refs.booksCaregoryTitle);
 console.log(Refs.booksCaregoryTitleSpan);
-console.log(Refs.categoriesList);
-console.log(Refs.booksCaregoriesContainer);
+
 
 getCategories()
     .then(categories => {
@@ -40,14 +46,31 @@ Refs.categoriesList.addEventListener('click', onLoadCategory);
 
 function onLoadCategory(evt) {
     if (evt.target.nodeName !== "LI") {
-        return;        
+        return;
     }
-    const categoryName = evt.target.dataset.categoryName;
-    const categoryNameArr = categoryName.split(' ');
-
-    console.log(categoryNameArr);
+    const categoryName = evt.target.dataset.categoryName;        
+    // const categoryNameArr = categoryName.split(' ');
+    // console.log(categoryNameArr);
+    // const categoryTitleSpan = categoryNameArr.pop();
+    // console.log(categoryTitleSpan);
+    // const mainCategoryTitlePart = categoryNameArr.join(' ');
+    // console.log(mainCategoryTitlePart);
+    
     getBooksInCategory(categoryName)
-        .then(books => console.log(books))
+        .then(books => {
+            console.log(books);
+            Refs.booksPart.innerHTML = 
+            `${createBooksCaregoryTitle(categoryName)}
+            <div class="book-category-container">
+                <ul class="book-cards-list">
+                ${createBooksInCategoryMarkup(books)}                  
+                </ul>                             
+            </div>`            
+        })
+        .catch((err) => {
+            console.error(err);
+            // Notify.failure('Oops! Something went wrong! Try reloading the page!');
+        });           
 }
 
 async function getCategories() {        
@@ -91,7 +114,7 @@ function createCategoriesListMarkup(categories) {
 
 function createBooksCategoriesCardsMarkup(categories) {
     return categories.map(({ list_name, books }) => {
-        const bookCards = books.map(({ _id, book_image, author, title }) =>
+        const booksCards = books.map(({ _id, book_image, author, title }) =>
             `<li class="book-cards-list-item">
             <img
             class="book-card-img"
@@ -108,11 +131,18 @@ function createBooksCategoriesCardsMarkup(categories) {
         return `<div class="book-category-container">
                 <h2 class="book-category-title">${list_name}</h2>
                 <ul class="book-cards-list">
-                ${bookCards}                  
+                ${booksCards}                  
                 </ul>
                 <button type="button" class="see-more-btn">See more</button>             
             </div>`
     }).join('');
+}
+
+function createBooksCaregoryTitle(categoryName) {
+    const categoryNameArr = categoryName.split(' ');
+    const categoryTitleSpan = categoryNameArr.pop();
+    const mainCategoryTitlePart = categoryNameArr.join(' ');
+    return `<h1 class="books-part-title">${mainCategoryTitlePart} <span class="books-part-title-span">${categoryTitleSpan}</span>`
 }
 
 function createBooksInCategoryMarkup(books) {
