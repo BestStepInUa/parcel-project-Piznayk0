@@ -132,6 +132,9 @@ body {
   line-height: 1.33;
   letter-spacing: -0.36px;
 }
+.categories-list-item {
+  cursor: pointer;
+}
 .categories-list-item:not(:last-child) {
   margin-bottom: 32px;
 }
@@ -180,19 +183,19 @@ body {
 .book-cards-list {
   display: flex;
   row-gap: 40px;
-  column-gap: 24px;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 32px;
+  column-gap: 24px;
 }
 .book-cards-list-one-category {
   flex-wrap: wrap;
 }
 .book-cards-list-item {
   width: 180px;
-
   outline: 2px solid orange;
   outline-offset: -2px;
+  cursor: pointer;
 }
 .book-card-img {
   min-width: 180px;
@@ -201,6 +204,7 @@ body {
   border-radius: 8px;
 }
 .book-card-title {
+  overflow: hidden;
   margin-bottom: 4px;
   color: var(--black-cl);
   font-style: normal;
@@ -208,26 +212,26 @@ body {
   line-height: 1.13;
   letter-spacing: -0.64px;
   text-transform: uppercase;
+  text-overflow: ellipsis;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   overflow-wrap: break-word;
 }
 .book-card-author {
+  overflow: hidden;
   color: var(--gray-cl);
   font-weight: 400;
   font-style: italic;
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: -0.48px;
+  text-overflow: ellipsis;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   overflow-wrap: break-word;
 }
 .see-more-btn {
+  width: 124px;
   margin-left: auto;
   padding: 14px 28px;
   border: 2px solid var(--violet-cl);
@@ -239,7 +243,6 @@ body {
   line-height: 1.29;
   letter-spacing: -0.14px;
   text-transform: uppercase;
-  width: 124px;
 }
 .see-more-btn:hover,
 .see-more-btn:focus {
