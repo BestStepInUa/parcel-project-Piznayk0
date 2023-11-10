@@ -40,7 +40,7 @@ function onLoadCategory(evt) {
         return;
     }
 
-    evt.target.classList.add('active');
+    // evt.target.classList.add('active');
 
     const categoryName = evt.target.dataset.categoryName;        
         
