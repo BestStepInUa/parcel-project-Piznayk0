@@ -43,8 +43,14 @@ function onLoadCategory(evt) {
     curr.parentElement.querySelector('.categories-list-item.active').classList.remove('active');
     curr.classList.add('active');
 
-    const categoryName = evt.target.dataset.categoryName;        
-        
+    const categoryName = evt.target.dataset.categoryName;
+    console.log(categoryName);
+    console.log(typeof (categoryName));
+    // Ось тут проблема!!! Не спрацьовує умова if
+    if (categoryName === 'All catigories') {
+        console.log('All catigories CLICK');
+    }
+           
     getBooksInCategory(categoryName)
         .then(books => {
             console.log(books);
