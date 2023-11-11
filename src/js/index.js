@@ -19,6 +19,21 @@ getCategories()
 
 getTopBooks()
     .then(categories => {
+        if (!categories || categories.length === 0) {
+            Refs.booksCaregoriesContainer.insertAdjacentHTML('afterbegin',
+                `<p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
+                <img
+                class="books-not-found-img"
+                srcset="./img/empty-bin@1x.png 1x, ./img/empty-bin@2x.png 2x"
+                src="./img/empty-bin@1x.png"
+                alt="Books not found"
+                height="241"
+                width="332"
+                />`
+            );
+            return;
+        }    
+        
         Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
     }
     )
@@ -46,6 +61,25 @@ function onLoadCategory(evt) {
     if (categoryName === 'All categories') {
         getTopBooks()
             .then(categories => {
+                 if (!categories || categories.length === 0) {                      
+                     Refs.booksPart.innerHTML =
+                        `<h1 class="books-part-title">Best Sellers
+                        <span class="books-part-title-span"> Books</span>
+                        </h1>
+                        <div class="book-categories-container">
+                        <p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
+                        <img
+                        class="books-not-found-img"
+                        srcset="./img/empty-bin@1x.png 1x, ./img/empty-bin@2x.png 2x"
+                        src="./img/empty-bin@1x.png"
+                        alt="Books not found"
+                        height="241"
+                        width="332"
+                        />
+                        </div>`
+                     return;
+                }    
+            
                 Refs.booksPart.innerHTML = 
                 `<h1 class="books-part-title">Best Sellers
                 <span class="books-part-title-span"> Books</span>
@@ -64,6 +98,22 @@ function onLoadCategory(evt) {
            
     getBooksInCategory(categoryName)
         .then(books => {
+            if (!books || books.length === 0) {
+                Refs.booksPart.innerHTML = 
+                `${createBooksCaregoryTitle(categoryName)}
+                <div class="book-category-wrapper">
+                <p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
+                <img
+                class="books-not-found-img"
+                srcset="./img/empty-bin@1x.png 1x, ./img/empty-bin@2x.png 2x"
+                src="./img/empty-bin@1x.png"
+                alt="Books not found"
+                height="241"
+                width="332"
+                />                                
+                </div>`
+                return;
+            }
             Refs.booksPart.innerHTML = 
             `${createBooksCaregoryTitle(categoryName)}
             <div class="book-category-wrapper">
@@ -90,6 +140,22 @@ function onSeeMoreBtn(evt) {
     
     getBooksInCategory(categoryName)
         .then(books => {
+            if (!books || books.length === 0) {
+                Refs.booksPart.innerHTML = 
+                `${createBooksCaregoryTitle(categoryName)}
+                <div class="book-category-wrapper">
+                <p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
+                <img
+                class="books-not-found-img"
+                srcset="./img/empty-bin@1x.png 1x, ./img/empty-bin@2x.png 2x"
+                src="./img/empty-bin@1x.png"
+                alt="Books not found"
+                height="241"
+                width="332"
+                />                                
+                </div>`
+                return;
+            }
             Refs.booksPart.innerHTML = 
             `${createBooksCaregoryTitle(categoryName)}
             <div class="book-category-wrapper">
@@ -140,6 +206,7 @@ function createCategoriesListMarkup(categories) {
             `<li class="categories-list-item" data-category-name="${list_name}">${list_name}</li>`
     ).sort((a,b) => a.localeCompare(b));    
     result.unshift(`<li class="categories-list-item active" data-category-name="All categories">All categories</li>`);
+    result.push(`<li class="categories-list-item active" data-category-name="Bug categoty for test">All categories</li>`);
     return result.join('');
 };
 

@@ -295,3 +295,9 @@ body {
   background-color: var(--violet-cl);
   color: var(--white-cl);
 }
+
+.books-not-found-message {
+  color: var(--black-cl);
+  font-size: 18px;
+  text-align: center;
+}
