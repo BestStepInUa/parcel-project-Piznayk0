@@ -6,7 +6,7 @@ Notify.init({
     position: 'right-top',
     fontSize: '16px',
     fontFamily: 'DM Sans',
-    timeout: 5000,             
+    timeout: 4000,             
 });
 
 const BASE_API_URL = 'https://books-backend.p.goit.global/books';
