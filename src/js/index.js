@@ -3,8 +3,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 Notify.init({
     width: '300px',
-    position: 'center-center',
+    position: 'right-top',
     fontSize: '16px',
+    fontFamily: 'DM Sans',
     timeout: 5000,             
 });
 
@@ -16,28 +17,18 @@ const Refs = {
     booksCaregoriesContainer: document.querySelector('.book-categories-container')    
 }
 
-try {
-    let categories = await getCategories();
-    Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
-  
-} catch (err) {
-    console.error(err);
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
+getCategories()
+    .then(categories => {
+        Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
+    })
+    .catch((err) => {
+        console.error(err);
+        Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    });
 
-}
-
-// getCategories()
-//     .then(categories => {
-//         Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);
-//     })
-//     .catch((err) => {
-//         console.error(err);
-//         Notify.failure('Oops! Something went wrong! Try reloading the page!');
-//     });
-
-try {
-    let categories = await getTopBooks();
-    if (!categories || categories.length === 0) {
+getTopBooks()
+    .then(categories => {
+        if (!categories || categories.length === 0) {
             Refs.booksCaregoriesContainer.insertAdjacentHTML('afterbegin',
                 `<p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
                 <img
@@ -50,38 +41,15 @@ try {
                 />`
             );
             return;
-    }
-    Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
-} catch (err) {
-    console.error(err);
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
-
-}
-
-// getTopBooks()
-//     .then(categories => {
-//         if (!categories || categories.length === 0) {
-//             Refs.booksCaregoriesContainer.insertAdjacentHTML('afterbegin',
-//                 `<p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
-//                 <img
-//                 class="books-not-found-img"
-//                 srcset="./img/empty-bin@1x.png 1x, ./img/empty-bin@2x.png 2x"
-//                 src="./img/empty-bin@1x.png"
-//                 alt="Books not found"
-//                 height="241"
-//                 width="332"
-//                 />`
-//             );
-//             return;
-//         }    
+        }    
         
-//         Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
-//     }
-//     )
-//     .catch((err) => {
-//         console.error(err);
-//         Notify.failure('Oops! Something went wrong! Try reloading the page!');
-//     });
+        Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
+    }
+    )
+    .catch((err) => {
+        console.error(err);
+        Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    });
 
 Refs.categoriesList.addEventListener('click', onLoadCategory);
 Refs.booksCaregoriesContainer.addEventListener('click', onSeeMoreBtn);
