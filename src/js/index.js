@@ -48,8 +48,8 @@ function onLoadCategory(evt) {
     console.log(typeof (categoryName));
     // Ось тут проблема!!! Не спрацьовує умова if
     if (categoryName === 'All catigories') {
-        console.log('All catigories CLICK');
-    }
+        console.log('All catigories CLICK');        
+    }    
            
     getBooksInCategory(categoryName)
         .then(books => {
