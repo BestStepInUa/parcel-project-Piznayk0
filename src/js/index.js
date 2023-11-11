@@ -10,7 +10,6 @@ const Refs = {
 
 getCategories()
     .then(categories => {
-        console.log(categories);
         Refs.categoriesList.innerHTML = createCategoriesListMarkup(categories);        
     })
     .catch((err) => {
@@ -20,7 +19,6 @@ getCategories()
 
 getTopBooks()
     .then(categories => {
-        console.log(categories);
         Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
     }
     )
@@ -44,16 +42,28 @@ function onLoadCategory(evt) {
     curr.classList.add('active');
 
     const categoryName = evt.target.dataset.categoryName;
-    console.log(categoryName);
-    console.log(typeof (categoryName));
-    // Ось тут проблема!!! Не спрацьовує умова if
-    if (categoryName === 'All catigories') {
-        console.log('All catigories CLICK');        
+    
+    if (categoryName === 'All categories') {
+        getTopBooks()
+            .then(categories => {
+                Refs.booksPart.innerHTML = 
+                `<h1 class="books-part-title">Best Sellers
+                <span class="books-part-title-span"> Books</span>
+                </h1>
+                <div class="book-categories-container">
+                ${createBooksCategoriesCardsMarkup(categories)}
+                </div>`
+            }
+            )
+            .catch((err) => {
+                console.error(err);
+                // Notify.failure('Oops! Something went wrong! Try reloading the page!');
+            });
+        return
     }    
            
     getBooksInCategory(categoryName)
         .then(books => {
-            console.log(books);
             Refs.booksPart.innerHTML = 
             `${createBooksCaregoryTitle(categoryName)}
             <div class="book-category-wrapper">
@@ -80,7 +90,6 @@ function onSeeMoreBtn(evt) {
     
     getBooksInCategory(categoryName)
         .then(books => {
-            console.log(books);
             Refs.booksPart.innerHTML = 
             `${createBooksCaregoryTitle(categoryName)}
             <div class="book-category-wrapper">
