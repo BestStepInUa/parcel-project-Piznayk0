@@ -3,10 +3,15 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 Notify.init({
     width: '300px',
-    position: 'right-top',
+    position: 'center-top',
     fontSize: '16px',
-    fontFamily: 'DM Sans',
-    timeout: 4000,             
+    fontFamily: 'DM Sans',    
+    timeout: 3000,
+    failure: {
+        notiflixIconColor: '#111',
+        background: '#4f2ee8',
+        textColor: '#fff',
+    }
 });
 
 const BASE_API_URL = 'https://books-backend.p.goit.global/books';
