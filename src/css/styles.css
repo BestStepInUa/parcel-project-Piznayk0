@@ -122,8 +122,8 @@ body {
   padding-right: 20px;
   padding-left: 20px;
 
-  outline: 2px solid red;
-  outline-offset: -2px;
+  /* outline: 2px solid red;
+  outline-offset: -2px; */
 }
 /* Tablet screen styles */
 @media only screen and (min-width: 768px) {
@@ -281,8 +281,9 @@ body {
 */
 .books-part {
   width: 335px;
-  outline: 2px solid green;
-  outline-offset: -2px;
+
+  /* outline: 2px solid green;
+  outline-offset: -2px; */
 }
 .books-part-title {
   margin-bottom: 40px;
@@ -328,9 +329,9 @@ body {
 }
 .book-cards-list-item {
   width: 335px;
-  outline: 2px solid orange;
-  outline-offset: -2px;
   cursor: pointer;
+  /* outline: 2px solid orange;
+  outline-offset: -2px; */
 }
 .book-cards-list-item:not(:first-child) {
   display: none;

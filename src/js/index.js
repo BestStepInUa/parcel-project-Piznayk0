@@ -59,7 +59,7 @@ getTopBooks()
     });
 
 Refs.categoriesList.addEventListener('click', onLoadCategory);
-Refs.booksCaregoriesContainer.addEventListener('click', onSeeMoreBtn);
+Refs.booksPart.addEventListener('click', onSeeMoreBtn);
 
 function onLoadCategory(evt) {
     if (evt.target.nodeName !== "LI") {
