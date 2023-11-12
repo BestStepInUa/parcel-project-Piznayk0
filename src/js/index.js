@@ -5,8 +5,10 @@ Notify.init({
     width: '300px',
     position: 'center-top',
     fontSize: '16px',
-    fontFamily: 'DM Sans',    
-    timeout: 3000,
+    fontFamily: 'DM Sans',
+    showOnlyTheLastOne: true,
+    clickToClose: true,
+    timeout: 5000,
     failure: {
         notiflixIconColor: '#111',
         background: '#4f2ee8',

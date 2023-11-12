@@ -210,9 +210,17 @@ body {
   |============================
 */
 /* Mobile devices styles */
-.categories-list {
+.categories-list-wrapper {
   overflow-y: scroll;
-  max-height: 228px;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 335px;
+  height: 228px;
+}
+.categories-list {
+  width: 307px;
+  color: var(--book-list-light-theme-cl);
   font-weight: 400;
   font-style: normal;
   font-size: 16px;
@@ -237,8 +245,12 @@ body {
 }
 /* Tablet and desktop screen styles */
 @media only screen and (min-width: 768px) {
+  .categories-list-wrapper {
+    width: 337px;
+    height: 474px;
+  }
   .categories-list {
-    max-height: 474px;
+    width: 309px;
     font-size: 18px;
     line-height: 1.33;
     letter-spacing: -0.36px;
@@ -252,6 +264,14 @@ body {
     font-size: 18px;
     line-height: 1.33;
     letter-spacing: -0.36px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .categories-list-wrapper {
+    width: 356px;
+  }
+  .categories-list {
+    width: 328px;
   }
 }
 /*
@@ -396,8 +416,8 @@ body {
     width: 996px;
   }
   .book-cards-list {
-    column-gap: 24px;
     margin-bottom: 32px;
+    column-gap: 24px;
   }
   .book-cards-list-item {
     width: 180px;
@@ -415,4 +435,35 @@ body {
   color: var(--black-cl);
   font-size: 18px;
   text-align: center;
+}
+
+/*
+  |============================
+  | Custom scrollbars styles
+  |============================
+*/
+body::-webkit-scrollbar {
+  width: 16px;
+}
+body::-webkit-scrollbar-track {
+  background-color: var(--book-list-light-theme-cl);
+  border-radius: 12px;
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--support-Ukraine-bg);
+  border-radius: 12px;
+  height: 167px;
+}
+
+.categories-list-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.categories-list-wrapper::-webkit-scrollbar-track {
+  background-color: var(--book-list-light-theme-cl);
+  border-radius: 12px;
+}
+.categories-list-wrapper::-webkit-scrollbar-thumb {
+  background: var(--support-Ukraine-bg);
+  border-radius: 12px;
+  height: 167px;
 }
