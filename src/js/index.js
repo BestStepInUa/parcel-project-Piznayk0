@@ -27,7 +27,7 @@ getCategories()
     });
 
 getTopBooks()
-    .then(categories => {
+    .then(categories => {        
         if (!categories || categories.length === 0) {
             Refs.booksCaregoriesContainer.insertAdjacentHTML('afterbegin',
                 `<p class="books-not-found-message">No books were found in this category😒<br> Please, try other categories😉</p>
@@ -41,9 +41,9 @@ getTopBooks()
                 />`
             );
             return;
-        }    
+        }
         
-        Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));
+        Refs.booksCaregoriesContainer.insertAdjacentHTML('beforeend', createBooksCategoriesCardsMarkup(categories));        
     }
     )
     .catch((err) => {
@@ -72,7 +72,7 @@ function onLoadCategory(evt) {
             .then(categories => {
                  if (!categories || categories.length === 0) {                      
                      Refs.booksPart.innerHTML =
-                        `<h1 class="books-part-title">Best Sellers
+                         `<h1 class="books-part-title">Best Sellers
                         <span class="books-part-title-span"> Books</span>
                         </h1>
                         <div class="book-categories-container">
@@ -85,24 +85,24 @@ function onLoadCategory(evt) {
                         height="241"
                         width="332"
                         />
-                        </div>`
+                        </div>`;
                      return;
                 }    
             
-                Refs.booksPart.innerHTML = 
-                `<h1 class="books-part-title">Best Sellers
+                Refs.booksPart.innerHTML =
+                    `<h1 class="books-part-title">Best Sellers
                 <span class="books-part-title-span"> Books</span>
                 </h1>
                 <div class="book-categories-container">
                 ${createBooksCategoriesCardsMarkup(categories)}
-                </div>`
+                </div>`;                
             }
             )
             .catch((err) => {
                 console.error(err);
                 Notify.failure('Oops! Something went wrong! Try reloading the page!');
             });
-        return
+        return;
     }    
            
     getBooksInCategory(categoryName)
@@ -129,7 +129,9 @@ function onLoadCategory(evt) {
                 <ul class="book-cards-list book-cards-list-one-category">
                 ${createBooksInCategoryMarkup(books)}                  
                 </ul>                             
-            </div>`            
+            </div>`
+
+            Refs.booksPart.querySelectorAll('.book-cards-list-item').forEach((item) => item.style.display = 'block');            
         })
         .catch((err) => {
             console.error(err);
@@ -171,7 +173,9 @@ function onSeeMoreBtn(evt) {
                 <ul class="book-cards-list book-cards-list-one-category">
                 ${createBooksInCategoryMarkup(books)}                  
                 </ul>                             
-            </div>`            
+            </div>`
+            
+            Refs.booksPart.querySelectorAll('.book-cards-list-item').forEach((item) => item.style.display = 'block');            
         })
         .catch((err) => {
             console.error(err);
@@ -215,7 +219,6 @@ function createCategoriesListMarkup(categories) {
             `<li class="categories-list-item" data-category-name="${list_name}">${list_name}</li>`
     ).sort((a,b) => a.localeCompare(b));    
     result.unshift(`<li class="categories-list-item active" data-category-name="All categories">All categories</li>`);
-    result.push(`<li class="categories-list-item active" data-category-name="Bug categoty for test">All categories</li>`);
     return result.join('');
 };
 
